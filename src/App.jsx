@@ -24,7 +24,7 @@ import ProgramDetails from "./components/Programs/ProgramDetails";
 
 function App() {
   const isAuthenticated = !!localStorage.getItem("token");
-
+  const test = "test";
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/login"; // Redirect to login after logout
