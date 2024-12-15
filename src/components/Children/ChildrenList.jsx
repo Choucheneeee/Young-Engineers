@@ -13,7 +13,9 @@ const ChildrenList = () => {
   useEffect(() => {
     const fetchChildren = async () => {
       try {
-        const response = await fetch("https://young-engineers-backk.onrender.com/api/children");
+        const response = await fetch(
+          "https://young-engineers-backk.onrender.com/api/children"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch children.");
         }
@@ -50,7 +52,10 @@ const ChildrenList = () => {
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
       age--;
     }
     return age;
@@ -60,9 +65,12 @@ const ChildrenList = () => {
   const handleDelete = async (childId) => {
     if (window.confirm("Are you sure you want to delete this child?")) {
       try {
-        const response = await fetch(`https://young-engineers-backk.onrender.com/api/children/${childId}`, {
-          method: "DELETE",
-        });
+        const response = await fetch(
+          `https://young-engineers-backk.onrender.com/api/children/${childId}`,
+          {
+            method: "DELETE",
+          }
+        );
         if (!response.ok) {
           throw new Error("Failed to delete child.");
         }
@@ -87,7 +95,7 @@ const ChildrenList = () => {
     return (
       <div className="text-center mt-5">
         <div className="spinner-border" role="status">
-          <span className="sr-only">Loading...</span>
+          <span className="sr-only"></span>
         </div>
       </div>
     );
@@ -107,7 +115,10 @@ const ChildrenList = () => {
 
       {/* Navigation Buttons */}
       <div className="d-flex justify-content-between mt-4 mb-4">
-        <button className="btn btn-primary" onClick={() => navigate("/child-form")}>
+        <button
+          className="btn btn-primary"
+          onClick={() => navigate("/child-form")}
+        >
           Add Child
         </button>
       </div>

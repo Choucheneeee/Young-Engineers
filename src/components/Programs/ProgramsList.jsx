@@ -52,7 +52,7 @@ const ProgramsList = () => {
 
   // Handle Edit
   const handleEdit = (programId) => {
-    navigate(`/program-form/${programId}`);
+    navigate(`/program-edit/${programId}`);
   };
 
   // Handle View Details
@@ -120,7 +120,12 @@ const ProgramsList = () => {
                   >
                     View Details
                   </button>
-
+                  <button
+                    className="btn btn-primary btn-sm mr-2"
+                    onClick={() => handleEdit(program._id)}
+                  >
+                    Edit
+                  </button>
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={() => handleDelete(program._id)}

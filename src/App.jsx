@@ -26,6 +26,7 @@ import ProgramForm from "./components/Programs/ProgramForm";
 import ProgramDetails from "./components/Programs/ProgramDetails";
 import PaymentsList from "./components/Payments/PaymentsList";
 import EditPayment from "./components/Payments/EditPayment";
+import ProgramEdit from "./components/Programs/ProgramEdit";
 // import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -41,12 +42,8 @@ function App() {
       <div className="d-flex">
         {/* Show Sidebar only if the user is authenticated */}
         {isAuthenticated && <Sidebar onLogout={handleLogout} />}
-        <div
-          className="container-fluid"
-        
-        >
+        <div className="container-fluid">
           <Routes>
-
             {/* Redirect to dashboard if already authenticated */}
             <Route
               path="/login"
@@ -103,7 +100,7 @@ function App() {
                 )
               }
             />
-            <Route 
+            <Route
               path="/parents"
               element={
                 isAuthenticated ? (
@@ -113,7 +110,7 @@ function App() {
                 )
               }
             />
-            <Route 
+            <Route
               path="/newparent"
               element={
                 isAuthenticated ? (
@@ -131,10 +128,12 @@ function App() {
             <Route path="/children" element={<ChildrenPage />} />
             <Route path="/child-details/:id" element={<ChildDetails />} />
             <Route path="/child-form" element={<ChildForm />} />
+
             {/* <Route path="*" element={<NotFoundPage />} /> */}
             <Route path="/programs" element={<ProgramsList />} />
             <Route path="/program-form" element={<ProgramForm />} />
             <Route path="/program-details/:id" element={<ProgramDetails />} />
+            <Route path="/program-edit/:programId" element={<ProgramEdit />} />
           </Routes>
         </div>
       </div>
