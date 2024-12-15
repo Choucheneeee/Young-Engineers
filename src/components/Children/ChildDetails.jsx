@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.png"; // Import the image
 
 const ChildDetails = () => {
   const { id } = useParams();
@@ -9,6 +8,14 @@ const ChildDetails = () => {
   const [child, setChild] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Preload all images in the assets folder
+  const images = import.meta.glob("../../assets/*.png", { eager: true });
+
+  const getStickerImage = (stickerName) => {
+    const imagePath = `../../assets/${stickerName}.png`;
+    return images[imagePath]?.default || images["../../assets/default-sticker.png"]?.default;
+  };
 
   useEffect(() => {
     const fetchChildDetails = async () => {
@@ -75,7 +82,7 @@ const ChildDetails = () => {
             <div key={sticker._id} className="col-md-4 mb-4">
               <div className="card" style={{ width: "18rem" }}>
                 <img
-                  src={logo} // Use the imported logo image
+                  src={getStickerImage(sticker.model)}
                   className="card-img-top"
                   alt={sticker.model}
                   style={{
@@ -89,7 +96,6 @@ const ChildDetails = () => {
                     <strong>Earned At:</strong>{" "}
                     {new Date(sticker.earnedAt).toLocaleDateString()}
                   </p>
-                  
                 </div>
               </div>
             </div>
