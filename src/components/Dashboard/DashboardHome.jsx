@@ -6,6 +6,7 @@ const DashboardHome = () => {
     { title: "Groups", count: 8, link: "/groups" },
     { title: "Children", count: 150, link: "/children" },
     { title: "Payments", count: 45, link: "/payments" },
+
   ];
 
   return (

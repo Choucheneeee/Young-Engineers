@@ -11,6 +11,8 @@ import DashboardPage from "./pages/DashboardPage";
 import GroupsPage from "./pages/GroupsPage";
 import GroupForm from "./components/Groups/GroupForm";
 import Login from "./components/Auth/LoginForm";
+import AddParentForm from "./components/Parent/AddNewParent";
+import DashboardParent from "./components/Parent/ParentDashboard";
 // import ChildrenPage from "./pages/ChildrenPage";
 // import PaymentsPage from "./pages/PaymentsPage";
 // import NotFoundPage from "./pages/NotFoundPage";
@@ -30,9 +32,10 @@ function App() {
         {isAuthenticated && <Sidebar onLogout={handleLogout} />}
         <div
           className="container-fluid"
-          style={{ marginLeft: isAuthenticated ? "250px" : "0" }}
+        
         >
           <Routes>
+
             {/* Redirect to dashboard if already authenticated */}
             <Route
               path="/login"
@@ -84,6 +87,26 @@ function App() {
               element={
                 isAuthenticated ? (
                   <Navigate to="/dashboard" replace />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+            <Route 
+              path="/parents"
+              element={
+                isAuthenticated ? (
+                  <DashboardParent />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+            <Route 
+              path="/newparent"
+              element={
+                isAuthenticated ? (
+                  <AddParentForm />
                 ) : (
                   <Navigate to="/login" replace />
                 )
