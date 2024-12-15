@@ -8,6 +8,7 @@ import {
 import Sidebar from "./components/Dashboard/Sidebar";
 import DashboardPage from "./pages/DashboardPage";
 // import ProgramsPage from "./pages/ProgramsPage";
+import ProgramsList from "./components/Programs/ProgramsList";
 import GroupsPage from "./pages/GroupsPage";
 import GroupForm from "./components/Groups/GroupForm";
 import Login from "./components/Auth/LoginForm";
@@ -15,11 +16,19 @@ import AddParentForm from "./components/Parent/AddNewParent";
 import DashboardParent from "./components/Parent/ParentDashboard";
 // import ChildrenPage from "./pages/ChildrenPage";
 // import PaymentsPage from "./pages/PaymentsPage";
+import ChildrenPage from "./pages/ChildrenPage";
+import PaymentForm from "./components/Payments/PaymentForm";
+import FinancialReport from "./components/Payments/FinancialReport";
+import ChildDetails from "./components/Children/ChildDetails";
+import ChildForm from "./components/Children/ChildForm";
+import PaymentsList from "./pages/FinancialReportPage";
+import ProgramForm from "./components/Programs/ProgramForm";
+import ProgramDetails from "./components/Programs/ProgramDetails";
 // import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   const isAuthenticated = !!localStorage.getItem("token");
-
+  const test = "test";
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/login"; // Redirect to login after logout
@@ -112,6 +121,16 @@ function App() {
                 )
               }
             />
+            <Route path="/payments" element={<PaymentsList />} />
+            <Route path="/payment-form" element={<PaymentForm />} />
+            <Route path="/payment-report" element={<FinancialReport />} />
+            <Route path="/children" element={<ChildrenPage />} />
+            <Route path="/child-details/:id" element={<ChildDetails />} />
+            <Route path="/child-form" element={<ChildForm />} />
+            {/* <Route path="*" element={<NotFoundPage />} /> */}
+            <Route path="/programs" element={<ProgramsList />} />
+            <Route path="/program-form" element={<ProgramForm />} />
+            <Route path="/program-details/:id" element={<ProgramDetails />} />
           </Routes>
         </div>
       </div>

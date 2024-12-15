@@ -88,7 +88,7 @@ const DashboardParent = () => {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th>Parent ID</th>
+            
             <th>Name</th>
             <th>Email</th>
             <th>Actions</th>
@@ -97,7 +97,7 @@ const DashboardParent = () => {
         <tbody>
           {parents.map((parent) => (
             <tr key={parent._id}>
-              <td>{parent._id}</td>
+              
               <td>{parent.name}</td>
               <td>{parent.email}</td>
               <td>
