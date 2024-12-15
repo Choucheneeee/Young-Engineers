@@ -12,7 +12,11 @@ import GroupsPage from "./pages/GroupsPage";
 import GroupForm from "./components/Groups/GroupForm";
 import Login from "./components/Auth/LoginForm";
 // import ChildrenPage from "./pages/ChildrenPage";
-// import PaymentsPage from "./pages/PaymentsPage";
+import FinancialReportPage from "./pages/FinancialReportPage";
+import PaymentForm from "./components/Payments/PaymentForm";
+import FinancialReport from "./components/Payments/FinancialReport";
+import PaymentsList from "./components/Payments/PaymentsList";
+import EditPayment from "./components/Payments/EditPayment";
 // import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -86,6 +90,10 @@ function App() {
                 )
               }
             />
+            <Route path="/payments" element={<PaymentsList />} />
+            <Route path="/payment-form" element={<PaymentForm />} />
+            <Route path="/payment-report" element={<FinancialReport />} />
+            <Route path="/payment-edit/:paymentId" element={<EditPayment />} />
           </Routes>
         </div>
       </div>
