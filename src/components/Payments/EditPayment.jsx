@@ -4,8 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const EditPayment = () => {
   const { paymentId } = useParams(); // Get paymentId from the URL parameters
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
+  console.log("sss", paymentId);
   const [formData, setFormData] = useState({
     amount: 0,
     date: "",

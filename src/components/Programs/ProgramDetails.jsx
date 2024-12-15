@@ -10,19 +10,18 @@ const ProgramDetails = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Simulate fetching program details
+    // Fetch program details from the API
     const fetchProgramDetails = async () => {
       try {
-        const staticPrograms = [
-          { id: "1", name: "Math Program", description: "Advanced math classes for kids", duration: "3 months", startDate: "2024-01-15", endDate: "2024-04-15" },
-          { id: "2", name: "Science Program", description: "Hands-on science experiments", duration: "2 months", startDate: "2024-02-01", endDate: "2024-03-31" },
-          { id: "3", name: "Art Program", description: "Creative art workshops", duration: "1 month", startDate: "2024-03-01", endDate: "2024-03-31" },
-        ];
-        const foundProgram = staticPrograms.find((p) => p.id === id);
-        if (!foundProgram) throw new Error("Program not found");
-        setProgram(foundProgram);
+        const response = await fetch(
+          `https://young-engineers-backk.onrender.com/api/programs/${id}`
+        );
+        if (!response.ok) throw new Error("Program not found");
+
+        const data = await response.json();
+        setProgram(data);
       } catch (err) {
-        setError(err.message);
+        setError("Unable to fetch program details. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -33,9 +32,9 @@ const ProgramDetails = () => {
 
   if (loading) {
     return (
-      <div className="text-center mt-5">
+      <div className="d-flex justify-content-center align-items-center mt-5">
         <div className="spinner-border" role="status">
-          <span className="sr-only">Loading...</span>
+          <span className="sr-only"></span>
         </div>
       </div>
     );
@@ -43,9 +42,12 @@ const ProgramDetails = () => {
 
   if (error) {
     return (
-      <div className="alert alert-danger mt-5" role="alert">
+      <div className="alert alert-danger mt-5 text-center" role="alert">
         {error}
-        <button className="btn btn-secondary mt-3" onClick={() => navigate("/programs")}>
+        <button
+          className="btn btn-outline-primary mt-3"
+          onClick={() => navigate("/programs")}
+        >
           Back to Programs
         </button>
       </div>
@@ -54,15 +56,41 @@ const ProgramDetails = () => {
 
   return (
     <div className="container mt-5">
-      <h1>{program.name}</h1>
-      <p><strong>Description:</strong> {program.description}</p>
-      <p><strong>Duration:</strong> {program.duration}</p>
-      <p><strong>Start Date:</strong> {new Date(program.startDate).toLocaleDateString()}</p>
-      <p><strong>End Date:</strong> {new Date(program.endDate).toLocaleDateString()}</p>
+      <div className="card shadow-lg border-0">
+        <div className="card-body">
+          <h1 className="card-title text-primary">{program.name}</h1>
+          <p className="card-text">
+            <strong>Description:</strong> {program.description}
+          </p>
+          <p className="card-text">
+            <strong>Duration:</strong> {program.duration}
+          </p>
+          <p className="card-text">
+            <strong>Start Date:</strong>{" "}
+            {new Date(program.stages[0].createdAt).toLocaleDateString()}
+          </p>
+          <p className="card-text">
+            <strong>End Date:</strong>{" "}
+            {new Date(program.updatedAt).toLocaleDateString()}
+          </p>
 
-      <button className="btn btn-secondary mt-4" onClick={() => navigate("/programs")}>
-        Back to Programs
-      </button>
+          <h4 className="mt-4">Stages</h4>
+          <ul className="list-group list-group-flush">
+            {program.stages.map((stage) => (
+              <li key={stage._id} className="list-group-item">
+                <strong>{stage.name}:</strong> {stage.description}
+              </li>
+            ))}
+          </ul>
+
+          <button
+            className="btn btn-outline-primary mt-4"
+            onClick={() => navigate("/programs")}
+          >
+            Back to Programs
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -17,9 +17,11 @@ import PaymentForm from "./components/Payments/PaymentForm";
 import FinancialReport from "./components/Payments/FinancialReport";
 import ChildDetails from "./components/Children/ChildDetails";
 import ChildForm from "./components/Children/ChildForm";
-import PaymentsList from "./pages/FinancialReportPage";
+
 import ProgramForm from "./components/Programs/ProgramForm";
 import ProgramDetails from "./components/Programs/ProgramDetails";
+import PaymentsList from "./components/Payments/PaymentsList";
+import EditPayment from "./components/Payments/EditPayment";
 // import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -96,6 +98,8 @@ function App() {
             <Route path="/payments" element={<PaymentsList />} />
             <Route path="/payment-form" element={<PaymentForm />} />
             <Route path="/payment-report" element={<FinancialReport />} />
+            <Route path="/payment-edit/:paymentId" element={<EditPayment />} />
+
             <Route path="/children" element={<ChildrenPage />} />
             <Route path="/child-details/:id" element={<ChildDetails />} />
             <Route path="/child-form" element={<ChildForm />} />
