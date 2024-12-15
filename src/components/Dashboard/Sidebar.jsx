@@ -46,7 +46,7 @@ const Sidebar = () => {
         className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
       >
 <img 
-  src="/images/logo.png" 
+  src="../../../dist/images/logo.png" 
   alt="Logo" 
   style={{ width: "150px", height: "auto" }} 
 />      </Link>
