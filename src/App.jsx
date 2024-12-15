@@ -15,6 +15,7 @@ import Login from "./components/Auth/LoginForm";
 import FinancialReportPage from "./pages/FinancialReportPage";
 import PaymentForm from "./components/Payments/PaymentForm";
 import FinancialReport from "./components/Payments/FinancialReport";
+import PaymentsList from "./pages/FinancialReportPage";
 // import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
         {isAuthenticated && <Sidebar onLogout={handleLogout} />}
         <div
           className="container-fluid"
-          style={{ marginLeft: isAuthenticated ? "250px" : "0" }}
+         
         >
           <Routes>
             {/* Redirect to dashboard if already authenticated */}
@@ -90,7 +91,7 @@ function App() {
                   <Navigate to="/login" replace />
                 )
               }
-            />
+            /><Route path="/payments" element={<PaymentsList />} />
             <Route path="/payment-form" element={<PaymentForm />} />
             <Route path="/payment-report" element={<FinancialReport />} />
           </Routes>
