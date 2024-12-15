@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import logo from "../../assets/logo.png"; // Import the image
 
 const ChildDetails = () => {
   const { id } = useParams();
@@ -10,16 +11,18 @@ const ChildDetails = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Simulate fetching child details for testing
     const fetchChildDetails = async () => {
       try {
-        const staticChildren = [
-          { id: "1", name: "John Doe", age: 8, group: "Group A", hobbies: "Drawing, Reading" },
-          { id: "2", name: "Jane Smith", age: 10, group: "Group B", hobbies: "Swimming, Dancing" },
-          { id: "3", name: "Emily Johnson", age: 9, group: "Group A", hobbies: "Music, Sports" },
-        ];
-        const foundChild = staticChildren.find((c) => c.id === id);
-        if (!foundChild) throw new Error("Child not found");
+        setLoading(true);
+        const response = await fetch(`https://young-engineers-backk.onrender.com/api/children`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch child details: ${response.statusText}`);
+        }
+        const data = await response.json();
+        const foundChild = data.find((c) => c._id === id);
+        if (!foundChild) {
+          throw new Error("Child not found");
+        }
         setChild(foundChild);
       } catch (err) {
         setError(err.message);
@@ -30,6 +33,12 @@ const ChildDetails = () => {
 
     fetchChildDetails();
   }, [id]);
+
+  const isStickerEarned = (earnedAt) => {
+    const currentDate = new Date();
+    const earnedDate = new Date(earnedAt);
+    return currentDate >= earnedDate;
+  };
 
   if (loading) {
     return (
@@ -55,9 +64,40 @@ const ChildDetails = () => {
   return (
     <div className="container mt-5">
       <h1>{child.name}'s Details</h1>
-      <p><strong>Age:</strong> {child.age}</p>
-      <p><strong>Group:</strong> {child.group}</p>
-      <p><strong>Hobbies:</strong> {child.hobbies}</p>
+      <p><strong>Date of Birth:</strong> {new Date(child.dateOfBirth).toLocaleDateString()}</p>
+      <p><strong>School Level:</strong> {child.schoolLevel}</p>
+      <p><strong>Group:</strong> {child.groupId || "Not Assigned"}</p>
+
+      <h2 className="mt-4">Stickers</h2>
+      <div className="row">
+        {child.stickers && child.stickers.length > 0 ? (
+          child.stickers.map((sticker) => (
+            <div key={sticker._id} className="col-md-4 mb-4">
+              <div className="card" style={{ width: "18rem" }}>
+                <img
+                  src={logo} // Use the imported logo image
+                  className="card-img-top"
+                  alt={sticker.model}
+                  style={{
+                    filter: isStickerEarned(sticker.earnedAt) ? "none" : "grayscale(100%)",
+                    transition: "filter 0.3s",
+                  }}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{sticker.model}</h5>
+                  <p className="card-text">
+                    <strong>Earned At:</strong>{" "}
+                    {new Date(sticker.earnedAt).toLocaleDateString()}
+                  </p>
+                  
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No stickers available.</p>
+        )}
+      </div>
 
       <button className="btn btn-secondary mt-4" onClick={() => navigate("/children")}>
         Back to Children List

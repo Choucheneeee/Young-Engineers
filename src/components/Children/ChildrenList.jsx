@@ -88,6 +88,7 @@ const ChildrenList = () => {
 
   // Handle View Details
   const handleViewDetails = (childId) => {
+    console.log(childId,"childId")
     navigate(`/child-details/${childId}`);
   };
 
