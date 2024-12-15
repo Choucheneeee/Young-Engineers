@@ -27,10 +27,14 @@ const DashboardHome = () => {
               }}
             >
               <div className="card-body">
-                <h5 className="card-title" style={{ fontWeight: 400 }}> {/* Regular font for titles */}
+                <h5 className="card-title" style={{ fontWeight: 400 }}>
+                  {" "}
+                  {/* Regular font for titles */}
                   {stat.title}
                 </h5>
-                <p className="card-text fs-1" style={{ fontWeight: 600 }}> {/* Bold font for numbers */}
+                <p className="card-text fs-1" style={{ fontWeight: 600 }}>
+                  {" "}
+                  {/* Bold font for numbers */}
                   {stat.count}
                 </p>
                 <a href={stat.link} className="btn btn-primary">
