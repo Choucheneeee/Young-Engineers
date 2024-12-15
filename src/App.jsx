@@ -14,12 +14,20 @@ function App() {
     <Router>
       <div className="d-flex">
         <Sidebar />
-        <div className="container-fluid" style={{ marginLeft: "250px" }}>
+        <div className="container-fluid">
           <Routes>
             <Route path="/dashboard" element={<DashboardPage />} />
             {/* <Route path="/programs" element={<ProgramsPage />} /> */}
             <Route path="/groups" element={<GroupsPage />} />
-            <Route path="/group-form" element={<GroupForm onSubmit={(data) => console.log(data)} programs={["Bricks Challenge", "Coding Challenge"]} />} />
+            <Route
+              path="/group-form"
+              element={
+                <GroupForm
+                  onSubmit={(data) => console.log(data)}
+                  programs={["Bricks Challenge", "Coding Challenge"]}
+                />
+              }
+            />
             {/* <Route path="/children" element={<ChildrenPage />} />
             <Route path="/payments" element={<PaymentsPage />} />
             <Route path="*" element={<NotFoundPage />} /> */}
