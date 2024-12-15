@@ -24,7 +24,7 @@ import ProgramDetails from "./components/Programs/ProgramDetails";
 
 function App() {
   const isAuthenticated = !!localStorage.getItem("token");
-
+  const test = "test";
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/login"; // Redirect to login after logout
@@ -35,10 +35,7 @@ function App() {
       <div className="d-flex">
         {/* Show Sidebar only if the user is authenticated */}
         {isAuthenticated && <Sidebar onLogout={handleLogout} />}
-        <div
-          className="container-fluid"
-         
-        >
+        <div className="container-fluid">
           <Routes>
             {/* Redirect to dashboard if already authenticated */}
             <Route
@@ -95,7 +92,8 @@ function App() {
                   <Navigate to="/login" replace />
                 )
               }
-            /><Route path="/payments" element={<PaymentsList />} />
+            />
+            <Route path="/payments" element={<PaymentsList />} />
             <Route path="/payment-form" element={<PaymentForm />} />
             <Route path="/payment-report" element={<FinancialReport />} />
             <Route path="/children" element={<ChildrenPage />} />

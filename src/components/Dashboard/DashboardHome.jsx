@@ -1,32 +1,12 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 
 const DashboardHome = () => {
-  const [stats, setStats] = useState([]);
-
-  useEffect(() => {
-    const fetchStatistics = async () => {
-      try {
-        const response = await axios.get("https://young-engineers-backk.onrender.com/api/statistics");
-        const { programCount, groupCount, childCount,UserCount } = response.data;
-        console.log(response.data,'data')
-
-        console.log(programCount,'programCount')
-
-        // Construct the stats array dynamically
-        setStats([
-          { title: "Programs", count: programCount, link: "/programs" },
-          { title: "Groups", count: groupCount, link: "/groups" },
-          { title: "Kids", count: childCount, link: "/children" },
-          { title: "Users", count: UserCount, link: "/payments" }, // Set Payments count if available
-        ]);
-      } catch (error) {
-        console.error("Failed to fetch statistics:", error);
-      }
-    };
-
-    fetchStatistics();
-  }, []);
+  const stats = [
+    { title: "Programs", count: 12, link: "/programs" },
+    { title: "Groups", count: 8, link: "/groups" },
+    { title: "Children", count: 150, link: "/children" },
+    { title: "Payments", count: 45, link: "/payments" },
+  ];
 
   return (
     <div className="container mt-5">

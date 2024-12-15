@@ -41,7 +41,7 @@ const Sidebar = () => {
       }}
     >
       <Link
-        to="/dashboard"
+        to={"/dashboard"}
         className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
       >
         <img src={logo} alt="Logo" style={{ width: "150px", height: "auto" }} />
