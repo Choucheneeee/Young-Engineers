@@ -15,7 +15,7 @@ const DashboardHome = () => {
 
         // Construct the stats array dynamically
         setStats([
-          { title: "Programss", count: programCount, link: "/programs" },
+          { title: "Programs", count: programCount, link: "/programs" },
           { title: "Groups", count: groupCount, link: "/groups" },
           { title: "Kids", count: childCount, link: "/children" },
           { title: "Users", count: UserCount, link: "/payments" }, // Set Payments count if available
