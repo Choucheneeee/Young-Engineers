@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { Router } from "react-router-dom";
 
 const Sidebar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const navigate = useNavigate();
-
+  const router = Router;
   const menuItems = [
     { name: "Dashboard", path: "/dashboard", icon: "bi bi-house" },
     { name: "Programs", path: "/programs", icon: "bi bi-book" },
@@ -28,7 +28,7 @@ const Sidebar = () => {
     console.log("sibon:", token);
 
     // Redirect to login page
-    navigate("/login");
+    window.location.href = "/dashboard";
   };
 
   return (

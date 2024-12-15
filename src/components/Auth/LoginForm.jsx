@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Font Awesome icons for password visibility toggle
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -8,8 +7,6 @@ const Login = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate(); // Initialize useNavigate for redirection
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +39,7 @@ const Login = () => {
       } else {
         // If login is successful
         localStorage.setItem("token", data.token); // Store the token in localStorage
-        navigate("/dashboard"); // Redirect to the dashboard page
+        window.location.href = "/dashboard"; // Redirect to the dashboard page
       }
     } catch (err) {
       setError("Something went wrong. Please try again.");
