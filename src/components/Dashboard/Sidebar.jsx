@@ -12,7 +12,7 @@ const Sidebar = () => {
     { name: "Groups", path: "/groups", icon: "bi bi-people" },
     { name: "Children", path: "/children", icon: "bi bi-person" },
     { name: "Payments", path: "/payments", icon: "bi bi-currency-dollar" },
-    {name: "Parent", path:"/parents"},
+    { name: "Parent", path: "/parents" },
   ];
 
   // Toggle the dropdown menu visibility
@@ -100,33 +100,6 @@ const Sidebar = () => {
               minWidth: "150px",
             }}
           >
-            <li>
-              <Link
-                to="/profile"
-                className="dropdown-item"
-                style={{
-                  padding: "10px 20px",
-                  fontSize: "14px",
-                }}
-              >
-                Profile
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/settings"
-                className="dropdown-item"
-                style={{
-                  padding: "10px 20px",
-                  fontSize: "14px",
-                }}
-              >
-                Settings
-              </Link>
-            </li>
-            <li>
-              <hr className="dropdown-divider" />
-            </li>
             <li>
               <button
                 onClick={handleLogout}

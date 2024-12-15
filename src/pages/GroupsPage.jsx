@@ -38,7 +38,10 @@ const GroupsPage = () => {
   };
 
   return (
-    <div className="container mt-5" style={{ fontFamily: "'Signika', sans-serif" }}>
+    <div
+      className="container mt-5"
+      style={{ fontFamily: "'Signika', sans-serif" }}
+    >
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 style={{ fontWeight: 600 }}>Groups</h1>
         <button className="btn btn-primary" onClick={handleCreateGroup}>
