@@ -27,6 +27,7 @@ import ProgramDetails from "./components/Programs/ProgramDetails";
 import PaymentsList from "./components/Payments/PaymentsList";
 import EditPayment from "./components/Payments/EditPayment";
 import ProgramEdit from "./components/Programs/ProgramEdit";
+import AttendanceTracker from "./components/Attendance/AttendanceTracker";
 // import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -128,7 +129,7 @@ function App() {
             <Route path="/children" element={<ChildrenPage />} />
             <Route path="/child-details/:id" element={<ChildDetails />} />
             <Route path="/child-form" element={<ChildForm />} />
-
+            <Route path="/attendance" element={<AttendanceTracker />} />
             {/* <Route path="*" element={<NotFoundPage />} /> */}
             <Route path="/programs" element={<ProgramsList />} />
             <Route path="/program-form" element={<ProgramForm />} />
