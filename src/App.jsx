@@ -6,7 +6,9 @@ import DashboardPage from "./pages/DashboardPage";
 import GroupsPage from "./pages/GroupsPage";
 import GroupForm from "./components/Groups/GroupForm";
 // import ChildrenPage from "./pages/ChildrenPage";
-// import PaymentsPage from "./pages/PaymentsPage";
+import FinancialReportPage from "./pages/FinancialReportPage";
+import PaymentForm from "./components/Payments/PaymentForm";
+import FinancialReport from "./components/Payments/FinancialReport";
 // import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -14,14 +16,16 @@ function App() {
     <Router>
       <div className="d-flex">
         <Sidebar />
-        <div className="container-fluid" style={{ marginLeft: "250px" }}>
+        <div className="container-fluid" >
           <Routes>
             <Route path="/dashboard" element={<DashboardPage />} />
             {/* <Route path="/programs" element={<ProgramsPage />} /> */}
             <Route path="/groups" element={<GroupsPage />} />
             <Route path="/group-form" element={<GroupForm onSubmit={(data) => console.log(data)} programs={["Bricks Challenge", "Coding Challenge"]} />} />
+            <Route path="/payments" element={<FinancialReportPage />} />
+            <Route path="/payment-form" element={<PaymentForm />} />
+            <Route path="/payment-report" element={<FinancialReport />} />
             {/* <Route path="/children" element={<ChildrenPage />} />
-            <Route path="/payments" element={<PaymentsPage />} />
             <Route path="*" element={<NotFoundPage />} /> */}
           </Routes>
         </div>
