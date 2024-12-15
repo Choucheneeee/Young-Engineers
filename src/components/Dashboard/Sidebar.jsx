@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
 import { Router } from "react-router-dom";
 
 const Sidebar = () => {
@@ -46,8 +45,11 @@ const Sidebar = () => {
         to={"/dashboard"}
         className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
       >
-        <img src={logo} alt="Logo" style={{ width: "150px", height: "auto" }} />
-      </Link>
+<img 
+  src="/images/logo.png" 
+  alt="Logo" 
+  style={{ width: "150px", height: "auto" }} 
+/>      </Link>
 
       <hr />
       <ul className="nav nav-pills flex-column mb-auto">

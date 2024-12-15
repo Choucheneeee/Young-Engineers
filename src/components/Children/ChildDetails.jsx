@@ -9,19 +9,18 @@ const ChildDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Preload all images in the assets folder
-  const images = import.meta.glob("../../assets/*.png", { eager: true });
-
+  // Helper function to get the sticker image path
   const getStickerImage = (stickerName) => {
-    const imagePath = `../../assets/${stickerName}.png`;
-    return images[imagePath]?.default || images["../../assets/default-sticker.png"]?.default;
+    return `/images/${stickerName}.png`; // Use absolute path for public folder
   };
 
   useEffect(() => {
     const fetchChildDetails = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`https://young-engineers-backk.onrender.com/api/children`);
+        const response = await fetch(
+          `https://young-engineers-backk.onrender.com/api/children`
+        );
         if (!response.ok) {
           throw new Error(`Failed to fetch child details: ${response.statusText}`);
         }
@@ -71,9 +70,15 @@ const ChildDetails = () => {
   return (
     <div className="container mt-5">
       <h1>{child.name}'s Details</h1>
-      <p><strong>Date of Birth:</strong> {new Date(child.dateOfBirth).toLocaleDateString()}</p>
-      <p><strong>School Level:</strong> {child.schoolLevel}</p>
-      <p><strong>Group:</strong> {child.groupId || "Not Assigned"}</p>
+      <p>
+        <strong>Date of Birth:</strong> {new Date(child.dateOfBirth).toLocaleDateString()}
+      </p>
+      <p>
+        <strong>School Level:</strong> {child.schoolLevel}
+      </p>
+      <p>
+        <strong>Group:</strong> {child.groupId || "Not Assigned"}
+      </p>
 
       <h2 className="mt-4">Stickers</h2>
       <div className="row">
