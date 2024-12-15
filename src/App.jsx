@@ -28,10 +28,7 @@ function App() {
       <div className="d-flex">
         {/* Show Sidebar only if the user is authenticated */}
         {isAuthenticated && <Sidebar onLogout={handleLogout} />}
-        <div
-          className="container-fluid"
-          style={{ marginLeft: isAuthenticated ? "250px" : "0" }}
-        >
+        <div className="container-fluid">
           <Routes>
             {/* Redirect to dashboard if already authenticated */}
             <Route
