@@ -1,8 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png"
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../assets/logo.png";
 
 const Sidebar = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+
   const menuItems = [
     { name: "Dashboard", path: "/dashboard", icon: "bi bi-house" },
     { name: "Programs", path: "/programs", icon: "bi bi-book" },
@@ -11,20 +14,37 @@ const Sidebar = () => {
     { name: "Payments", path: "/payments", icon: "bi bi-currency-dollar" },
   ];
 
+  // Toggle the dropdown menu visibility
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    // Remove token from localStorage
+    const token = localStorage.getItem("token");
+    console.log("Logging out user with token:", token);
+    localStorage.removeItem("token");
+    console.log("sibon:", token);
+
+    // Redirect to login page
+    navigate("/login");
+  };
+
   return (
     <div
       className="d-flex flex-column flex-shrink-0 p-3 bg-light"
-      style={{ width: "250px", height: "100vh", fontFamily: "'Signika', sans-serif" }}
+      style={{
+        width: "250px",
+        height: "100vh",
+        fontFamily: "'Signika', sans-serif",
+      }}
     >
       <Link
         to="/dashboard"
         className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
       >
-        <img
-          src={logo}
-          alt="Logo"
-          style={{ width: "150px", height: "auto" }}
-        />
+        <img src={logo} alt="Logo" style={{ width: "150px", height: "auto" }} />
       </Link>
 
       <hr />
@@ -47,13 +67,12 @@ const Sidebar = () => {
         ))}
       </ul>
       <hr />
-      <div className="dropdown">
-        <Link
-          to="#"
+      <div className="dropdown position-relative">
+        <button
           className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
           id="dropdownUser2"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
+          onClick={toggleDropdown}
+          aria-expanded={isDropdownOpen}
           style={{ fontWeight: 400 }}
         >
           <img
@@ -64,27 +83,66 @@ const Sidebar = () => {
             className="rounded-circle me-2"
           />
           <strong>Admin</strong>
-        </Link>
-        <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-          <li>
-            <Link className="dropdown-item" to="/profile">
-              Profile
-            </Link>
-          </li>
-          <li>
-            <Link className="dropdown-item" to="/settings">
-              Settings
-            </Link>
-          </li>
-          <li>
-            <hr className="dropdown-divider" />
-          </li>
-          <li>
-            <Link className="dropdown-item" to="/logout">
-              Sign out
-            </Link>
-          </li>
-        </ul>
+        </button>
+        {isDropdownOpen && (
+          <ul
+            className="text-small shadow"
+            style={{
+              position: "absolute",
+              bottom: "100%",
+              left: "0",
+              zIndex: 10,
+              backgroundColor: "#fff",
+              borderRadius: "8px",
+              boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
+              padding: "8px 0",
+              minWidth: "150px",
+            }}
+          >
+            <li>
+              <Link
+                to="/profile"
+                className="dropdown-item"
+                style={{
+                  padding: "10px 20px",
+                  fontSize: "14px",
+                }}
+              >
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/settings"
+                className="dropdown-item"
+                style={{
+                  padding: "10px 20px",
+                  fontSize: "14px",
+                }}
+              >
+                Settings
+              </Link>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+            <li>
+              <button
+                onClick={handleLogout}
+                className="dropdown-item text-danger"
+                style={{
+                  padding: "10px 20px",
+                  fontSize: "14px",
+                  backgroundColor: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                Sign out
+              </button>
+            </li>
+          </ul>
+        )}
       </div>
     </div>
   );
