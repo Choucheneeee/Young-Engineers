@@ -12,6 +12,10 @@ import ProgramsList from "./components/Programs/ProgramsList";
 import GroupsPage from "./pages/GroupsPage";
 import GroupForm from "./components/Groups/GroupForm";
 import Login from "./components/Auth/LoginForm";
+import AddParentForm from "./components/Parent/AddNewParent";
+import DashboardParent from "./components/Parent/ParentDashboard";
+// import ChildrenPage from "./pages/ChildrenPage";
+// import PaymentsPage from "./pages/PaymentsPage";
 import ChildrenPage from "./pages/ChildrenPage";
 import PaymentForm from "./components/Payments/PaymentForm";
 import FinancialReport from "./components/Payments/FinancialReport";
@@ -37,8 +41,12 @@ function App() {
       <div className="d-flex">
         {/* Show Sidebar only if the user is authenticated */}
         {isAuthenticated && <Sidebar onLogout={handleLogout} />}
-        <div className="container-fluid">
+        <div
+          className="container-fluid"
+        
+        >
           <Routes>
+
             {/* Redirect to dashboard if already authenticated */}
             <Route
               path="/login"
@@ -90,6 +98,26 @@ function App() {
               element={
                 isAuthenticated ? (
                   <Navigate to="/dashboard" replace />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+            <Route 
+              path="/parents"
+              element={
+                isAuthenticated ? (
+                  <DashboardParent />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+            <Route 
+              path="/newparent"
+              element={
+                isAuthenticated ? (
+                  <AddParentForm />
                 ) : (
                   <Navigate to="/login" replace />
                 )

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const GroupDetails = ({ group }) => {
+const GroupDetails = ({ group, onUpdate, onDelete }) => {
   if (!group) {
     return (
       <div className="text-center mt-5">
@@ -9,6 +9,18 @@ const GroupDetails = ({ group }) => {
       </div>
     );
   }
+
+  const handleUpdate = () => {
+    // Call the onUpdate function passed as a prop
+    onUpdate(group.id);
+  };
+
+  const handleDelete = () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this group?");
+    if (confirmDelete) {
+      onDelete(group.id);
+    }
+  };
 
   return (
     <div className="container mt-5" style={{ fontFamily: "'Signika', sans-serif" }}>
@@ -37,6 +49,21 @@ const GroupDetails = ({ group }) => {
               </li>
             ))}
           </ul>
+          <button
+            style={{ marginRight: 20 }}
+            type="button"
+            className="btn btn-warning"
+            onClick={handleUpdate}
+          >
+            Update
+          </button>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
@@ -45,6 +72,7 @@ const GroupDetails = ({ group }) => {
 
 GroupDetails.propTypes = {
   group: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     program: PropTypes.string.isRequired,
     members: PropTypes.arrayOf(
@@ -54,6 +82,9 @@ GroupDetails.propTypes = {
       })
     ).isRequired,
   }),
+  onUpdate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default GroupDetails;
+  

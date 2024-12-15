@@ -3,24 +3,40 @@ import { useNavigate } from "react-router-dom";
 
 const ChildrenList = () => {
   const [children, setChildren] = useState([]);
+  const [groups, setGroups] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
+  // Fetch children from the database
   useEffect(() => {
-    // Static children data for testing
-    const fetchChildren = () => {
+    const fetchChildren = async () => {
       try {
-        const staticChildren = [
-          { id: "1", name: "John Doe", age: 8, group: "Group A" },
-          { id: "2", name: "Jane Smith", age: 10, group: "Group B" },
-          { id: "3", name: "Emily Johnson", age: 9, group: "Group A" },
-        ];
-        setChildren(staticChildren);
-        setLoading(false);
+        const response = await fetch("https://young-engineers-backk.onrender.com/api/children");
+        if (!response.ok) {
+          throw new Error("Failed to fetch children.");
+        }
+        const data = await response.json();
+        setChildren(data);
+
+        // Fetch groups based on group IDs
+        const groupIds = [...new Set(data.map((child) => child.groupId))];
+        const groupPromises = groupIds.map((id) =>
+          fetch(`https://young-engineers-backk.onrender.com/api/groups/${id}`)
+            .then((res) => res.json())
+            .then((group) => ({ id, name: group.name }))
+        );
+
+        const groupData = await Promise.all(groupPromises);
+        const groupMap = groupData.reduce((acc, group) => {
+          acc[group.id] = group.name;
+          return acc;
+        }, {});
+        setGroups(groupMap);
       } catch (err) {
-        setError("Unable to fetch children.");
+        setError(err.message);
+      } finally {
         setLoading(false);
       }
     };
@@ -28,10 +44,32 @@ const ChildrenList = () => {
     fetchChildren();
   }, []);
 
+  // Calculate age from dateOfBirth
+  const calculateAge = (dateOfBirth) => {
+    const birthDate = new Date(dateOfBirth);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
+
   // Handle Delete
-  const handleDelete = (childId) => {
+  const handleDelete = async (childId) => {
     if (window.confirm("Are you sure you want to delete this child?")) {
-      setChildren(children.filter((child) => child.id !== childId));
+      try {
+        const response = await fetch(`https://young-engineers-backk.onrender.com/api/children/${childId}`, {
+          method: "DELETE",
+        });
+        if (!response.ok) {
+          throw new Error("Failed to delete child.");
+        }
+        setChildren(children.filter((child) => child._id !== childId));
+      } catch (err) {
+        alert(err.message);
+      }
     }
   };
 
@@ -80,6 +118,7 @@ const ChildrenList = () => {
           <tr>
             <th>Child ID</th>
             <th>Name</th>
+            <th>Date of Birth</th>
             <th>Age</th>
             <th>Group</th>
             <th>Actions</th>
@@ -88,27 +127,28 @@ const ChildrenList = () => {
         <tbody>
           {children.length > 0 ? (
             children.map((child) => (
-              <tr key={child.id}>
-                <td>{child.id}</td>
+              <tr key={child._id}>
+                <td>{child._id}</td>
                 <td>{child.name}</td>
-                <td>{child.age}</td>
-                <td>{child.group}</td>
+                <td>{child.dateOfBirth}</td>
+                <td>{calculateAge(child.dateOfBirth)}</td>
+                <td>{groups[child.groupId] || "Loading..."}</td>
                 <td>
                   <button
                     className="btn btn-primary btn-sm mr-2"
-                    onClick={() => handleEdit(child.id)}
+                    onClick={() => handleEdit(child._id)}
                   >
                     Edit
                   </button>
                   <button
                     className="btn btn-danger btn-sm mr-2"
-                    onClick={() => handleDelete(child.id)}
+                    onClick={() => handleDelete(child._id)}
                   >
                     Delete
                   </button>
                   <button
                     className="btn btn-info btn-sm"
-                    onClick={() => handleViewDetails(child.id)}
+                    onClick={() => handleViewDetails(child._id)}
                   >
                     View Details
                   </button>
@@ -117,7 +157,7 @@ const ChildrenList = () => {
             ))
           ) : (
             <tr>
-              <td colSpan="5" className="text-center">
+              <td colSpan="6" className="text-center">
                 No children found.
               </td>
             </tr>

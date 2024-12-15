@@ -12,6 +12,7 @@ const Sidebar = () => {
     { name: "Groups", path: "/groups", icon: "bi bi-people" },
     { name: "Children", path: "/children", icon: "bi bi-person" },
     { name: "Payments", path: "/payments", icon: "bi bi-currency-dollar" },
+    {name: "Parent", path:"/parents"},
   ];
 
   // Toggle the dropdown menu visibility
