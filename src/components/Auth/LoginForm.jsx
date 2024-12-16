@@ -55,7 +55,7 @@ const Login = () => {
       style={{ background: "linear-gradient(to left, #0083cb, #ed174c)" }}
     >
       <img
-        src="../../../dist/images/logo.png"
+        src="/images/logo.png"
         alt="logo"
         className="position-absolute"
         style={{

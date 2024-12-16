@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Router } from "react-router-dom";
 
+
 const Sidebar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const router = Router;
@@ -16,6 +17,10 @@ const Sidebar = () => {
   ];
 
   // Toggle the dropdown menu visibility
+  const getStickerImage = (stickerName) => {
+    return `/images/${stickerName}.png`; // Use absolute path for public folder
+  };
+
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
@@ -41,15 +46,18 @@ const Sidebar = () => {
         fontFamily: "'Signika', sans-serif",
       }}
     >
-      <Link
-        to={"/dashboard"}
-        className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-      >
+     <Link
+  to="/dashboard"
+  className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+>
 <img 
-  src="../../../dist/images/logo.png" 
+  src="/images/logo.png" 
   alt="Logo" 
-  style={{ width: "150px", height: "auto" }} 
-/>      </Link>
+  style={{ width: "150px", height: "auto" }}
+/>
+
+</Link>
+
 
       <hr />
       <ul className="nav nav-pills flex-column mb-auto">
@@ -80,7 +88,7 @@ const Sidebar = () => {
           style={{ fontWeight: 400 }}
         >
           <img
-            src="https://via.placeholder.com/40"
+            src="/images/logo.png"
             alt="User"
             width="40"
             height="40"
