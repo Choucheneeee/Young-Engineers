@@ -24,7 +24,7 @@ This project was completed within an impressive 12-hour timeframe through effici
         Chouchen Med Amine: Managed and executed the deployment of the full-stack application.(Frontend,Backend,Database)
 
 ##  Live Demo
-Access the application here: https://young-engineers-front-5lu4qv1ri-choucheneeees-projects.vercel.app/login
+Access the application here: https://young-engineers-front-git-chouchene-choucheneeees-projects.vercel.app/login
 ---
 ##  Default Admin User
 To log in as the default administrator, use the following credentials:
